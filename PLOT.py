@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_aft_stack(aft_stack, x_coord, y_coord, nose_x):

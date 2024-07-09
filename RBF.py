@@ -1,6 +1,9 @@
 import numpy as np
 
+#rn为距离，r0为紧支半径，basis为基函数类型
+#理论基础见《计算流体力学网格生成技术》p243p244
 def RBF_func(rn, r0, basis):
+    #全域型径向基函数
     if basis == 11:          # Volume Spline
         fai = rn
     elif basis == 12:       # Thin Plate Spline
@@ -14,7 +17,7 @@ def RBF_func(rn, r0, basis):
         fai = 1.0 / fai
     elif basis == 15:       # Inverse Quadric
         fai = 1.0 / (1 + rn**2)
-    else:                  # Tension Spline
+    else:                  #紧支型径向基函数
         ksi = rn / r0
         if ksi >= 1:
             fai = 0.0

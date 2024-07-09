@@ -54,10 +54,12 @@ while t < 10:
         wall_index = wallNodes[i] - 1
         x = xCoord_new[wall_index] - nose_x
         y = yCoord[wall_index]
+
+        #此处表示已知所有物面点的位移
         A = min(1, t / T) * (0.02 - 0.0825 * x + 0.1625 * x**2)
         B = A * np.sin(2 * np.pi / lamda * (x - c * t))
         dy[i,0] = B[0]
-        yCoord_new[wall_index] = np.sign(yCoord[wall_index]) * abs(yCoord[wall_index]) + B[0]
+        yCoord_new[wall_index] = yCoord[wall_index] + B[0]
 
     # 计算权重系数矩阵W
     fai = np.zeros((nWallNodes, nWallNodes))
@@ -70,6 +72,8 @@ while t < 10:
             wall_index2 = wallNodes[j] - 1
             x2 = xCoord[wall_index2]
             y2 = yCoord[wall_index2]
+            
+            #距离加上1e-40防止除以零
             dis = np.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2) + 1e-40
             fai[i, j] = RBF.RBF_func(dis[0], r0, basis)
     W = np.dot(np.linalg.inv(fai),dy)

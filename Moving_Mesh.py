@@ -1,7 +1,7 @@
 import scipy.io as sio
 import numpy as np
 import RBF
-import PLOT
+from PLOT import *
 #导入matlab数据
 load_f1 = 'data\WALL.mat'
 load_data = sio.loadmat(load_f1)
@@ -101,7 +101,7 @@ while t < 10:
         xCoord_new[i] = xCoord_new[i] + dx 
 
     # 绘制网格
-    PLOT.plot_aft_stack(Grid, xCoord_new, yCoord_new, nose_x)
+    plot_grid(Grid, xCoord_new, yCoord_new, nose_x)
 
     if input("按任意键继续生成t=t0+dt时刻网格，或输入q退出循环:\n") == 'q':
         break

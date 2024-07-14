@@ -79,6 +79,7 @@ while t < 10:
     W = np.dot(np.linalg.inv(fai),dy)
 
     # 利用W计算内场点的位移
+    # 这里将远场边界点通过插值更改了坐标，不清楚是否需要保持不变或者保持整个框架不变
     fai = np.zeros((1, nWallNodes))
 
     for i in range(nNodes):

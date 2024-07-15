@@ -1,32 +1,12 @@
-import scipy.io as sio
 import numpy as np
 import RBF
-from PLOT import *
-#导入matlab数据
-load_f1 = 'data\WALL.mat'
-load_data = sio.loadmat(load_f1)
-WALL= load_data['WALL']
-
-
-load_f2 = 'data\Grid.mat'
-load_data = sio.loadmat(load_f2)
-Grid= load_data['Grid']
-
-
-load_f3 = 'data\Coord.mat'
-load_data = sio.loadmat(load_f3)
-Coord= load_data['Coord']
-
-
-load_f4 = 'data\wallNodes.mat'
-load_data = sio.loadmat(load_f4)
-wallNodes= load_data['wallNodes']
-wallNodes = wallNodes[0]
+from PLOT import plot_grid
+from read_grid import Coord , wallNodes , Grid
 
 xCoord = np.array([Coord[:, 0]]).T
 yCoord = np.array([Coord[:, 1]]).T
 nNodes = Coord.shape[0]
-nWallNodes = wallNodes.shape[0]
+nWallNodes = len(wallNodes)
 
 #参数
 lamda = 1      #波长
@@ -103,7 +83,6 @@ while t < 10:
 
     # 绘制网格
     plot_grid(Grid, xCoord_new, yCoord_new, nose_x)
-
-    if input("按任意键继续生成t=t0+dt时刻网格，或输入q退出循环:\n") == 'q':
+    if input(f"t={t} 按任意键继续生成下一时刻网格，或输入q退出循环:\n") == 'q':
         break
 
